@@ -7,6 +7,7 @@ import java.net.URLConnection
 import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.gridfs.Imports._
 import conf.connection.HashDB
+import domain.FileMeta
 import org.bson.types.ObjectId
 
 /**
@@ -19,10 +20,10 @@ object FilesRepository {
     URLConnection.guessContentTypeFromName(name)
   }
 
-  def save(file: FileInputStream) = {
+  def save(file: FileInputStream,meta:FileMeta) = {
     val fileId = gridfs(file) { f =>
-      f.filename = "simpsons.jpg"
-      f.contentType = "image/jpeg"
+      f.filename = meta.fileName
+      f.contentType = meta.contentType
     }
     fileId
   }

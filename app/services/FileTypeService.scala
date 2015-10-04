@@ -10,22 +10,11 @@ import org.apache.tika.Tika
 object FileTypeService {
   val detect = new Tika()
 
-  def detectByFileNameOrUrl(file:String): String ={
-    detect.detect(file)
+  def detectFile(file:Any):String={
+    file match {
+      case value:String => detect.detect(value)
+      case value:File => detect.detect(value)
+      case value:InputStream => detect.detect(value)
+    }
   }
-
-  def detectByFile(file:File) ={
-
-  }
-
-  def detectByInputStream(file:InputStream)={
-
-  }
-
-  def detectByUrloRUrl(url:String): String ={
-    detect.detect(url)
-  }
-
-
-
 }
