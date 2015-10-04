@@ -20,12 +20,12 @@ object FilesRepository {
     URLConnection.guessContentTypeFromName(name)
   }
 
-  def save(file: FileInputStream,meta:FileMeta) = {
+  def save(file: FileInputStream,meta:FileMeta):ObjectId = {
     val fileId = gridfs(file) { f =>
       f.filename = meta.fileName
       f.contentType = meta.contentType
     }
-    fileId
+    fileId.get.asInstanceOf[ObjectId]
   }
 
   def getFileById(id: String): Option[GridFSDBFile] = {

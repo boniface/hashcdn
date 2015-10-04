@@ -1,6 +1,6 @@
 package services
 
-import java.io.File
+import java.io.{FileInputStream, File}
 
 import com.mongodb.casbah.gridfs.GridFSDBFile
 import domain.{FileMeta, FileResults}
@@ -26,7 +26,8 @@ object FileServices {
         Seq[FileResults](r)
       }
       case false =>  Future{
-        val r = FileResults("1","2",None)
+        val res = FilesRepository.save(new FileInputStream(data),meta)
+        val r = FileResults(res.toString,"/api//api/getfile/"+res.toString,None)
         Seq[FileResults](r)
       }
     }
