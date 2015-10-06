@@ -18,11 +18,11 @@ class FileTypesTest {
     val logo = new FileInputStream(file)
     //    val mimeType = FileTypeService.detectFile("http://localhost:9000/cdn/56095b6ebe24baa41da57f13")
 
-    val outfile = FileServices.createImage(file)
+//    val outfile = FileServices.createImage(file)
 //    val outfileThumb = FileServices.createThumb(file)
-    val  image = ImageIO.read(outfile)
+//    val  image = ImageIO.read(outfile)
 //    val  imageb = ImageIO.read(outfileThumb)
-    ImageIO.write(image, "jpg",new File("/home/hashcode/hashprojects/hashcdn/test/services/hederle.jpg"))
+//    ImageIO.write(image, "jpg",new File("/home/hashcode/hashprojects/hashcdn/test/services/hederle.jpg"))
 //    ImageIO.write(imageb, "jpg",new File("/home/hashcode/hashprojects/hashcdn/test/services/thumb.jpg"))
 
 
