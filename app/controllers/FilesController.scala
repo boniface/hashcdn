@@ -41,7 +41,7 @@ class FilesController extends Controller {
     }
   }
 
-  def getFile(id: String) = Action {
+  def getFile(id: String, filename:String) = Action {
     import scala.concurrent.ExecutionContext.Implicits.global
     FileServices.getFile(id) match {
       case Some(file) => Result(

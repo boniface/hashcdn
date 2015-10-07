@@ -25,6 +25,7 @@ object FilesRepository {
       f.filename = meta.fileName
       f.contentType = meta.contentType
     }
+
     fileId.get.asInstanceOf[ObjectId]
   }
 

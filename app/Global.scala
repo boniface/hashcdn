@@ -20,7 +20,6 @@ object Global extends WithFilters(CORSFilter()) with GlobalSettings {
 
   // called when a route is found, but it was not possible to bind the request parameters
   override def onBadRequest(request: RequestHeader, error: String):Future[Result] = {
-
     Future.successful(NotFound(Json.obj("error" -> "Bad Request")))
   }
 
@@ -29,5 +28,6 @@ object Global extends WithFilters(CORSFilter()) with GlobalSettings {
 
     Future.successful(NotFound(Json.obj("error" -> "500 Internal Error")))
   }
+
 
 }
