@@ -8,7 +8,6 @@ import play.api.mvc.Results._
 import play.api.routing.Router
 import scala.concurrent._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-
 /**
  * Created by hashcode on 2015/10/07.
  */
