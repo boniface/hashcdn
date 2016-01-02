@@ -6,27 +6,24 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 scalaVersion := "2.11.7"
 
-val PhantomVersion = "1.12.2"
 
 libraryDependencies ++= Seq(
   jdbc,
   cache,
   ws,
   specs2 % Test,
-"com.websudos"  %% "phantom-dsl"                   % PhantomVersion,
-"com.websudos"  %% "phantom-testkit"               % PhantomVersion,
 "org.scalatest" % "scalatest_2.11"                 % "2.2.5"
 )
 
-libraryDependencies += "org.mongodb" % "casbah-gridfs_2.11" % "2.8.2"
+libraryDependencies += "org.mongodb" % "casbah-gridfs_2.11" % "3.1.0"
 
 libraryDependencies += "junit" % "junit" % "4.12"
 
-libraryDependencies += "org.mongodb" % "casbah_2.11" % "2.8.2"
+libraryDependencies += "org.mongodb" % "casbah_2.11" % "3.1.0"
 
-libraryDependencies += "org.apache.tika" % "tika-core" % "1.10"
+libraryDependencies += "org.apache.tika" % "tika-core" % "1.11"
 
-libraryDependencies += "org.apache.tika" % "tika" % "1.10"
+libraryDependencies += "org.apache.tika" % "tika" % "1.11"
 
 libraryDependencies += "org.imgscalr" % "imgscalr-lib" % "4.2"
 
