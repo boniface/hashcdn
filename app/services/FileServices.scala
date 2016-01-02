@@ -21,7 +21,6 @@ object FileServices {
   }
 
   def processFile(data: File, meta: FileMeta): Future[Seq[FileResults]] = {
-
     import scala.concurrent.ExecutionContext.Implicits.global
     meta.contentType.startsWith("image") match {
       case true => Future {
@@ -33,13 +32,15 @@ object FileServices {
         val thumbnailImageMetaData = FileResults(
           thumbnailImageId.toString,
           "/api/static/" + thumbnailImageId.toString+"/"+getFileName(thumbnailImageId.toString),
-          Some("Thumbnail"))
+          Some("Thumbnail"),
+        meta.contentType)
 
         val normalImageId = FilesRepository.save(new FileInputStream(normal), meta)
 
         val normalImageMetaData = FileResults(normalImageId.toString,
           "/api/static/" + normalImageId.toString+"/"+getFileName(normalImageId.toString),
-          Some("Standard"))
+          Some("Standard"),
+          meta.contentType)
 
         Seq[FileResults](normalImageMetaData, thumbnailImageMetaData)
       }
@@ -47,7 +48,8 @@ object FileServices {
         val fileId = FilesRepository.save(new FileInputStream(data), meta)
         val fileMetaData = FileResults(fileId.toString,
           "/api/static/" + fileId.toString+"/"+getFileName(fileId.toString),
-          None)
+          None,
+          meta.contentType)
         Seq[FileResults](fileMetaData)
       }
     }

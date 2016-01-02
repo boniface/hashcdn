@@ -8,7 +8,8 @@ import play.api.libs.json.Json
 case class FileResults(
                         id: String,
                         url: String,
-                        size: Option[String]
+                        size: Option[String],
+                        mime:String
                         )
 
 

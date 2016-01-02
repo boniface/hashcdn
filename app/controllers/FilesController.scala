@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat
 import domain.FileMeta
 import play.api.libs.iteratee.Enumerator
 import play.api.libs.json.Json
-import play.api.mvc.{Action, Controller, ResponseHeader, Result}
+import play.api.mvc._
 import services.{FileServices, FileTypeService}
 
 import scala.concurrent.Future
@@ -20,7 +20,9 @@ class FilesController extends Controller {
   //    request.body.moveTo(new File("/tmp/picture/uploaded"))
   //    Ok("File uploaded")
   //  }
-  // curl -v -X POST http://localhost:9000/upload -F "upload=@/home/hashcode/0imagescript/images/image.jpg
+  //curl -v -X POST http://localhost:9000/api/upload -F "upload=@/home/hashcode/0imagescript/images/image.jpg"
+
+
 
 
   def upload = Action.async(parse.multipartFormData) { request =>
@@ -41,7 +43,7 @@ class FilesController extends Controller {
     }
   }
 
-  def getFile(id: String, filename:String) = Action {
+  def getFile(id: String, filename: String) = Action {
     import scala.concurrent.ExecutionContext.Implicits.global
     FileServices.getFile(id) match {
       case Some(file) => Result(
@@ -57,30 +59,29 @@ class FilesController extends Controller {
   }
 
 
+  //    def handleFilePartAsByteArray: PartHandler[FilePart[Array[Byte]]] =
+  //      handleFilePart {
+  //        case FileInfo(partName, filename, contentType) =>
+  //          // simply write the data to the a ByteArrayOutputStream
+  //          Iteratee.fold[Array[Byte], ByteArrayOutputStream](
+  //            new ByteArrayOutputStream()) { (os, data) =>
+  //            os.write(data)
+  //            os
+  //          }.mapDone { os =>
+  //            os.close()
+  //            os.toByteArray
+  //          }
+  //      }
   //
-  //  def handleFilePartAsByteArray: PartHandler[FilePart[Array[Byte]]] =
-  //    handleFilePart {
-  //      case FileInfo(partName, filename, contentType) =>
-  //        // simply write the data to the a ByteArrayOutputStream
-  //        Iteratee.fold[Array[Byte], ByteArrayOutputStream](
-  //          new ByteArrayOutputStream()) { (os, data) =>
-  //          os.write(data)
-  //          os
-  //        }.mapDone { os =>
-  //          os.close()
-  //          os.toByteArray
-  //        }
+  //    def multipartFormDataAsBytes:BodyParser[MultipartFormData[Array[Byte]]] =
+  //      multipartFormData(handleFilePartAsByteArray)
+  //
+  //    def fileUploader = Action(multipartFormDataAsBytes) { request =>
+  //      request.body.files foreach {
+  //        case FilePart(key, filename, contentType, bytes) => // do something
+  //      }
+  //      Ok("done")
   //    }
-  //
-  //  def multipartFormDataAsBytes:BodyParser[MultipartFormData[Array[Byte]]] =
-  //    multipartFormData(handleFilePartAsByteArray)
-  //
-  //  def fileUploader = Action(multipartFormDataAsBytes) { request =>
-  //    request.body.files foreach {
-  //      case FilePart(key, filename, contentType, bytes) => // do something
-  //    }
-  //    Ok("done")
-  //  }
 
 
 }
