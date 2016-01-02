@@ -1,10 +1,22 @@
+import com.typesafe.sbt.packager.archetypes.ServerLoader
+
 name := """hashcdn"""
 
 version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+lazy val root = (project in file(".")).enablePlugins(PlayScala,DebianPlugin,JavaServerAppPackaging)
 
 scalaVersion := "2.11.7"
+
+maintainer := "Boniface Kabaso <boniface@kabaso.com>"
+packageSummary in Linux := "Hashcode CDN"
+packageDescription :=  "Hashcode CDN API Backend "
+serverLoading in Debian := ServerLoader.SystemV
+
+bashScriptExtraDefines ++= Seq(
+  """addJava "-Xms1024m"""",
+  """addJava "-Xmx2048m""""
+)
 
 
 libraryDependencies ++= Seq(
