@@ -6,9 +6,11 @@ import javax.imageio.ImageIO
 
 import com.mongodb.casbah.gridfs.GridFSDBFile
 import com.sksamuel.scrimage.{Format, FormatDetector}
+
 import domain.{FileMeta, FileResults}
 import org.imgscalr.Scalr
 import repository.FilesRepository
+
 
 import scala.concurrent.Future
 
@@ -31,18 +33,23 @@ object FileServices {
         val thumbnailImageId = FilesRepository.save(new FileInputStream(thumb), meta)
         val thumbnailImageMetaData = FileResults(
           thumbnailImageId.toString,
-          "/api/static/" + thumbnailImageId.toString+"/"+getFileName(thumbnailImageId.toString),
+          "/api/static/" + thumbnailImageId.toString + "/" + getFileName(thumbnailImageId.toString),
           Some("Thumbnail"),
-        meta.contentType)
+          meta.contentType)
 
         val normalImageId = FilesRepository.save(new FileInputStream(normal), meta)
-
         val normalImageMetaData = FileResults(normalImageId.toString,
-          "/api/static/" + normalImageId.toString+"/"+getFileName(normalImageId.toString),
+          "/api/static/" + normalImageId.toString + "/" + getFileName(normalImageId.toString),
           Some("Standard"),
           meta.contentType)
 
-        Seq[FileResults](normalImageMetaData, thumbnailImageMetaData)
+        val originId = FilesRepository.save(new FileInputStream(data), meta)
+        val originMetaData = FileResults(originId.toString,
+          "/api/static/" + originId.toString + "/" + getFileName(originId.toString),
+          Some("Original"),
+          meta.contentType)
+
+        Seq[FileResults](normalImageMetaData, thumbnailImageMetaData, originMetaData)
       }
       case false => Future {
         val fileId = FilesRepository.save(new FileInputStream(data), meta)

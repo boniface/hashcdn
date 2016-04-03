@@ -6,7 +6,7 @@ version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala,DebianPlugin,JavaServerAppPackaging)
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.8"
 
 maintainer := "Boniface Kabaso <boniface@kabaso.com>"
 packageSummary in Linux := "Hashcode CDN"
@@ -14,8 +14,8 @@ packageDescription :=  "Hashcode CDN API Backend "
 serverLoading in Debian := ServerLoader.SystemV
 
 bashScriptExtraDefines ++= Seq(
-  """addJava "-Xms1024m"""",
-  """addJava "-Xmx2048m""""
+  """addJava "-Xms4096m"""",
+  """addJava "-Xmx4096m""""
 )
 
 
@@ -24,23 +24,24 @@ libraryDependencies ++= Seq(
   cache,
   ws,
   specs2 % Test,
-"org.scalatest" % "scalatest_2.11"                 % "2.2.5"
+"org.scalatest" % "scalatest_2.11"                 % "2.2.6"
 )
 
-libraryDependencies += "org.mongodb" % "casbah-gridfs_2.11" % "3.1.0"
+libraryDependencies += "org.mongodb" % "casbah-gridfs_2.11" % "3.1.1"
 
 libraryDependencies += "junit" % "junit" % "4.12"
 
-libraryDependencies += "org.mongodb" % "casbah_2.11" % "3.1.0"
+libraryDependencies += "org.mongodb" % "casbah_2.11" % "3.1.1"
 
-libraryDependencies += "org.apache.tika" % "tika-core" % "1.11"
+libraryDependencies += "org.apache.tika" % "tika-core" % "1.12"
 
-libraryDependencies += "org.apache.tika" % "tika" % "1.11"
+libraryDependencies += "org.apache.tika" % "tika" % "1.12"
 
 libraryDependencies += "org.imgscalr" % "imgscalr-lib" % "4.2"
 
-libraryDependencies += "com.sksamuel.scrimage" % "scrimage-core_2.11" % "2.1.1"
+libraryDependencies += "com.sksamuel.scrimage" % "scrimage-core_2.11" % "2.1.5"
 
+libraryDependencies += filters
 
 resolvers ++= Seq(
   "Typesafe repository snapshots" at "http://repo.typesafe.com/typesafe/snapshots/",
