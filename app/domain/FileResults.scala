@@ -12,7 +12,6 @@ case class FileResults(
                         mime:String
                         )
 
-
 object FileResults {
 
   implicit val advertFmt = Json.format[FileResults]
