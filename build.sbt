@@ -33,13 +33,20 @@ libraryDependencies += "junit" % "junit" % "4.12"
 
 libraryDependencies += "org.mongodb" % "casbah_2.11" % "3.1.1"
 
-libraryDependencies += "org.apache.tika" % "tika-core" % "1.12"
+libraryDependencies += "org.apache.tika" % "tika-core" % "1.13"
 
-libraryDependencies += "org.apache.tika" % "tika" % "1.12"
+libraryDependencies += "org.apache.tika" % "tika" % "1.13"
 
 libraryDependencies += "org.imgscalr" % "imgscalr-lib" % "4.2"
 
-libraryDependencies += "com.sksamuel.scrimage" % "scrimage-core_2.11" % "2.1.5"
+// https://mvnrepository.com/artifact/com.sksamuel.scrimage/scrimage-core_2.11
+libraryDependencies += "com.sksamuel.scrimage" % "scrimage-core_2.11" % "2.1.7"
+
+// https://mvnrepository.com/artifact/org.mongodb.scala/mongo-scala-driver_2.11
+libraryDependencies += "org.mongodb.scala" % "mongo-scala-driver_2.11" % "1.1.1"
+
+
+
 
 libraryDependencies += filters
 

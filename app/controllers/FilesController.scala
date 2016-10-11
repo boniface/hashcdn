@@ -8,8 +8,16 @@ import play.api.libs.json.Json
 import play.api.libs.streams.Streams
 import play.api.mvc._
 import services.{FileServices, FileTypeService}
+import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.concurrent.Future
+
+//  def upload = Action(parse.temporaryFile) { request =>
+//    request.body.moveTo(new File("/tmp/picture/uploaded"))
+//    Ok("File uploaded")
+//  }
+//curl -v -X POST http://localhost:9000/api/upload -F "upload=@/home/hashcode/0imagescript/images/image.jpg"
+//02f62e18e9c91e0df732e08f60435841
 
 
 /**
@@ -17,15 +25,8 @@ import scala.concurrent.Future
   */
 class FilesController extends Controller {
 
-  //  def upload = Action(parse.temporaryFile) { request =>
-  //    request.body.moveTo(new File("/tmp/picture/uploaded"))
-  //    Ok("File uploaded")
-  //  }
-  //curl -v -X POST http://localhost:9000/api/upload -F "upload=@/home/hashcode/0imagescript/images/image.jpg"
-
-
   def upload = Action.async(parse.multipartFormData) { request =>
-    import scala.concurrent.ExecutionContext.Implicits.global
+
     request.body.file("upload") match {
       case Some(file) => {
         val data = file.ref.file

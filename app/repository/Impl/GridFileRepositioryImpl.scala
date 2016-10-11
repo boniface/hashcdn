@@ -1,4 +1,4 @@
-package repository
+package repository.Impl
 
 import java.io.FileInputStream
 import java.net.URLConnection
@@ -7,18 +7,19 @@ import com.mongodb.casbah.gridfs.{GridFS, GridFSDBFile}
 import conf.connection.HashDB
 import domain.FileMeta
 import org.bson.types.ObjectId
+import repository.GridFileRepositiory
 
 /**
-  * Created by hashcode on 2015/09/29.
+  * Created by hashcode on 2016/10/11.
   */
-object FileRepository {
+class GridFileRepositioryImpl extends GridFileRepositiory {
   val gridFs = GridFS(HashDB.getGridFsConnection())
 
   def getFileType(name: String): String = {
     URLConnection.guessContentTypeFromName(name)
   }
 
-  def save(file: FileInputStream,meta:FileMeta):ObjectId = {
+  def save(file: FileInputStream, meta: FileMeta): ObjectId = {
     val fileId = gridFs(file) { f =>
       f.filename = meta.fileName
       f.contentType = meta.contentType
@@ -43,5 +44,6 @@ object FileRepository {
   def deleteFilesByName(fileName: String) = {
     gridFs.remove(fileName)
   }
+
 
 }

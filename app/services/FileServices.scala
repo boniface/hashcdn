@@ -9,7 +9,7 @@ import com.sksamuel.scrimage.{Format, FormatDetector}
 
 import domain.{FileMeta, FileResults}
 import org.imgscalr.Scalr
-import repository.FilesRepository
+import repository.FileRepository
 
 
 import scala.concurrent.Future
@@ -19,7 +19,7 @@ import scala.concurrent.Future
  */
 object FileServices {
   def getFile(id: String): Option[GridFSDBFile] = {
-    FilesRepository.getFileById(id)
+    FileRepository.getFileById(id)
   }
 
   def processFile(data: File, meta: FileMeta): Future[Seq[FileResults]] = {
@@ -30,20 +30,20 @@ object FileServices {
         val normal = resizeImage(data, ext, 650)
         val thumb = resizeImage(data, ext, 150)
 
-        val thumbnailImageId = FilesRepository.save(new FileInputStream(thumb), meta)
+        val thumbnailImageId = FileRepository.save(new FileInputStream(thumb), meta)
         val thumbnailImageMetaData = FileResults(
           thumbnailImageId.toString,
           "/api/static/" + thumbnailImageId.toString + "/" + getFileName(thumbnailImageId.toString),
           Some("Thumbnail"),
           meta.contentType)
 
-        val normalImageId = FilesRepository.save(new FileInputStream(normal), meta)
+        val normalImageId = FileRepository.save(new FileInputStream(normal), meta)
         val normalImageMetaData = FileResults(normalImageId.toString,
           "/api/static/" + normalImageId.toString + "/" + getFileName(normalImageId.toString),
           Some("Standard"),
           meta.contentType)
 
-        val originId = FilesRepository.save(new FileInputStream(data), meta)
+        val originId = FileRepository.save(new FileInputStream(data), meta)
         val originMetaData = FileResults(originId.toString,
           "/api/static/" + originId.toString + "/" + getFileName(originId.toString),
           Some("Original"),
@@ -52,7 +52,7 @@ object FileServices {
         Seq[FileResults](normalImageMetaData, thumbnailImageMetaData, originMetaData)
       }
       case false => Future {
-        val fileId = FilesRepository.save(new FileInputStream(data), meta)
+        val fileId = FileRepository.save(new FileInputStream(data), meta)
         val fileMetaData = FileResults(fileId.toString,
           "/api/static/" + fileId.toString+"/"+getFileName(fileId.toString),
           None,
@@ -85,7 +85,7 @@ object FileServices {
   }
 
   private def getFileName(id:String):String={
-   FilesRepository.getFileById(id) match {
+   FileRepository.getFileById(id) match {
       case Some(data) => data.filename.get
       case None => "nofile"
     }
