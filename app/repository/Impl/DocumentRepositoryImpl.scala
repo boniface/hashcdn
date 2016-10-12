@@ -1,13 +1,12 @@
 package repository.Impl
 
-import com.mongodb.BasicDBObject
 import conf.connection.HashDB
 import domain.Key
-import org.mongodb.scala.result.{DeleteResult, UpdateResult}
-import org.mongodb.scala.{Completed, Document, Observable}
-import repository.DocumentRepository
 import org.mongodb.scala.model.Filters._
 import org.mongodb.scala.model.Updates._
+import org.mongodb.scala.result.{DeleteResult, UpdateResult}
+import org.mongodb.scala.{Completed, Document}
+import repository.DocumentRepository
 
 import scala.concurrent.Future
 

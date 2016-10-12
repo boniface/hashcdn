@@ -1,24 +1,22 @@
-package services
+package services.impl
 
-import java.io._
+import java.io.{File, FileInputStream}
 import java.util.UUID
 import javax.imageio.ImageIO
 
 import com.mongodb.casbah.gridfs.GridFSDBFile
 import com.sksamuel.scrimage.{Format, FormatDetector}
-
 import domain.{FileMeta, FileResults}
 import org.imgscalr.Scalr
 import repository.FileRepository
-
+import services.{FileTypeService, GridFileService}
 
 import scala.concurrent.Future
 
 /**
- * Created by hashcode on 2015/09/29.
- */
-@Deprecated
-object FileServices {
+  * Created by hashcode on 2016/10/12.
+  */
+class GridFileServiceImpl extends GridFileService{
   def getFile(id: String): Option[GridFSDBFile] = {
     FileRepository.getFileById(id)
   }
@@ -86,9 +84,10 @@ object FileServices {
   }
 
   private def getFileName(id:String):String={
-   FileRepository.getFileById(id) match {
+    FileRepository.getFileById(id) match {
       case Some(data) => data.filename.get
       case None => "nofile"
     }
   }
 }
+
