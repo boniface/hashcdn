@@ -13,7 +13,7 @@ import scala.concurrent.Future
 trait DocumentRepository {
   def createKey(key: Key): Future[Seq[Completed]]
 
-  def updateKey(key: Key): Future[Seq[Completed]]
+  def updateKey(key: Key): Future[Seq[UpdateResult]]
 
   def getKey(id: String):  Future[Seq[Document]]
 
