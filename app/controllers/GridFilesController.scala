@@ -44,9 +44,7 @@ class GridFilesController extends Controller {
     request.body.file("upload") match {
       case Some(file) => {
         val data = file.ref.file
-
         val meta = FileMeta(file.filename, FileTypeService.detectFile(data))
-
         val results = GridFileService.apply.processFile(data, meta)
         results map (result => {
           Ok(Json.toJson(result))
